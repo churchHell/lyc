@@ -16,10 +16,10 @@ class Show extends BaseComponent
     public ?int $purchaseId;
     public string $image = '';
     public array $item;
-    public int $price;
+    public string $price;
     public string $qty;
-    public int $total;
-    public $created_at;
+    public string $total;
+    public $created;
 
     protected array $rules = ['qty' => 'required|integer|min:1'];
 
@@ -31,8 +31,7 @@ class Show extends BaseComponent
         $this->price = $purchase->price;
         $this->qty = $purchase->qty;
         $this->total = $purchase->total;
-        $this->created_at = $purchase->created_at->formatLocalized('%d %B %Y');
-        // $this->created_at = $purchase->created_at->formatLocalized('%d %F %Y в %H:%i');
+        $this->created = $purchase->created;
     }
 
     public function update(): void

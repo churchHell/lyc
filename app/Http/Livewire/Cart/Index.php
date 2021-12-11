@@ -19,6 +19,14 @@ class Index extends BaseComponent
     public function mount(): void
     {
         $this->settings = SettingsKey::whereSlug('order')->first()->settings->keyBy('slug')->toArray();
+        $cart = cartRepository()->getCart()->load('purchases');
+
+        optional($cart->purchases)->each(
+            fn($purchase) => $purchase->updateIf(
+                $purchase->created_at->diff(now())->days >= 1, 
+                ['price' => $purchase->item->price]
+            )
+        );
     }
 
     public function orderCreated()

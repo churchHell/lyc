@@ -20,5 +20,16 @@ class BuilderMixin
             return $this->first();
         };
     }
+
+    public function updateIf()
+    {   
+        return function (bool $condition = false, array $data = []): bool
+        {
+            if($condition){
+                return $this->model->update($data);
+            }
+            return false;
+        };
+    }
     
 }

@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="flex items-center justify-between">
             <button type="submit" class="m success">
                 {{ __('login') }}
             </button>
@@ -28,8 +28,6 @@
             <a class="" href="{{ route('password.request') }}">
                 {{ __('forgot-password') }}
             </a>
-
-
             @endif
         </div>
     </form>

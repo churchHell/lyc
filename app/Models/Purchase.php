@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Price;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,11 +11,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Purchase extends Model
 {
+
     use HasFactory;
 
     protected $fillable = ['cart_id', 'item_id', 'qty', 'price'];
     protected $with = ['item'];
-    protected $casts = ['created_at' => 'datetime'];
+    protected $casts = ['created_at' => 'datetime', 'price' => Price::class];
 
     public function cart(): BelongsTo
     {
@@ -31,14 +33,14 @@ class Purchase extends Model
         return $this->belongsTo(Item::class);
     }
 
-    public function getTotalAttribute(): string
+    public function getTotalAttribute()
     {
         return $this->qty * $this->price;
     }
 
-//    public function scopeActual(Builder $query): Builder
-//    {
-//        return $query->order
-//    }
+   public function getCreatedAttribute(): string
+   {
+       return $this->created_at->format('d.m.Y в H:i');
+   }
 
 }

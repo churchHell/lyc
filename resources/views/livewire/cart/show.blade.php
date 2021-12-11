@@ -36,7 +36,7 @@
             </div>
             <div class="text-center">
                 <div class="font-bold">{{ __('added') }}</div>
-                <div class="">{{ $created_at }}</div>
+                <div class="">{{ $created }}</div>
             </div>
             <div class="">
                 <x-button wire:click="delete" success="deleted" error="notDeleted"

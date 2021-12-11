@@ -22,12 +22,12 @@ class ItemPolicy
         return true;
     }
 
-    public function update(User $user, Item $category)
+    public function update(User $user, Item $item)
     {
         return true;
     }
 
-    public function delete(User $user, Item $category)
+    public function delete(User $user, Item $item)
     {
         return true;
     }

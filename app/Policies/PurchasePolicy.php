@@ -12,6 +12,7 @@ class PurchasePolicy
 
     public function update(User $user = null, Purchase $purchase)
     {
+        dd($purchase);
         return $this->can($user, $purchase);
     }
 
