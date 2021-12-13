@@ -1,7 +1,7 @@
 <div class="space-y-1">
-    <div class="grid grid-cols-6 gap-4">
+    <div class="grid grid-cols-7 gap-4">
             
-        <div class="">
+        <div class="col-span-2">
             {{ $delivery['name'] }}
         </div>
 
