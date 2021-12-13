@@ -17,9 +17,23 @@ class Index extends Component
 
     public function render()
     {
-        $items = $this->slug
-            ? Category::whereSlug($this->slug)->active()->first()->items()->search($this->search)->active()->paginate(20)
-            : Item::active()->search($this->search)->latest()->paginate(20);
+        try {
+            $items = $this->slug
+                ? Category::whereSlug($this->slug)
+                    ->active()
+                    ->first()
+                    ->items()
+                    ->search($this->search)
+                    ->active()
+                    ->paginate(20)
+                : Item::active()
+                    ->search($this->search)
+                    ->latest()
+                    ->paginate(20);
+        } catch (\Error $e){
+            $items = collect();
+        }
+
         return view('livewire.items.index', compact('items'));
     }
 }

@@ -13,8 +13,9 @@ class Index extends BaseComponent
 
     public bool $orderCreated = false;
     public array $settings = [];
+    public ?string $deliveryPrice = null;
 
-    protected $listeners = ['orderCreated', 'render'];
+    protected $listeners = ['orderCreated', 'render', 'deliverySelected'];
 
     public function mount(): void
     {
@@ -32,7 +33,13 @@ class Index extends BaseComponent
     public function orderCreated()
     {
         $this->orderCreated = true;
+        $this->deliveryPrice = null;
         $this->render();
+    }
+
+    public function deliverySelected(string $deliveryPrice): void
+    {
+        $this->deliveryPrice = $deliveryPrice;
     }
 
     public function render()

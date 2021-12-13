@@ -134,8 +134,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'delivery_id' => [
+            'required' => 'Пожалуйста выберите доставку',
         ],
     ],
 
@@ -157,6 +157,7 @@ return [
     */
 
     'attributes' => [
+        'delivery_id' => 'Доставка',
         'name' => 'Имя',
         'user.name' => 'Имя',
         'surname' => 'Фамилия',

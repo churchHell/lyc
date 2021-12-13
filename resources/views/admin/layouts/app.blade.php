@@ -12,6 +12,7 @@
 			<a href="{{ route('admin.units.index') }}">{{ __('units') }}</a>
 			<a href="{{ route('admin.settings.index') }}">{{ __('settings') }}</a>
 			<a href="{{ route('admin.pages.index') }}">{{ __('pages') }}</a>
+			<a href="{{ route('admin.deliveries.index') }}">{{ __('deliveries') }}</a>
 		</div>
 
 		<div class="col-span-11 pl-6 pr-2 py-4">

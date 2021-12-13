@@ -22,19 +22,24 @@
                     </div>
                 </div>
 
-                <div class="">
-                    {{ __('delivery') }}:
+                <div class="space-y-1">
+                    <div>{{ __('delivery') }}:</div>
                     @forelse ($deliveries as $delivery)
-                        <div class="flex space-x-4">
+                        <div class="flex space-x-4 items-start">
                             <input wire:model="delivery_id" type="radio" value="{{ $delivery['id'] }}" class="">
                             <div class="">
-                                {{ $delivery['name'] }}
-                                {{ $delivery['description'] }}
+                                <div>
+                                    <span class="font-bold">{{ $delivery['name'] }}.</span>
+                                    <span>{{ renderPrice($delivery['price']) }}</span>
+                                </div>
+                                <div class="italic">{{ $delivery['description'] }}</div>
                             </div>
                         </div>
                     @empty
-
+                        {{ __('empty') }}
                     @endforelse
+                    <x-error>delivery</x-error>
+                    <x-error>delivery_id</x-error>
                 </div>
 
                 <div class="">

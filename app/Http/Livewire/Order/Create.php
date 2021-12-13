@@ -20,7 +20,7 @@ class Create extends Component
     public string $phone = '';
 
     public array $deliveries = [];
-    public int $delivery_id;
+    public ?int $delivery_id = null;
 
     protected array $rules = [
         'name' => 'required|string',
@@ -35,9 +35,7 @@ class Create extends Component
             $this->surname = auth()->user()->surname;
             $this->phone = auth()->user()->phone;
         }
-        $deliveries = Delivery::get();
-        $this->delivery_id = $deliveries->first()->id;
-        $this->deliveries = $deliveries->toArray();
+        $this->deliveries = Delivery::active()->get()->keyBy('id')->toArray();
     }
 
     public function store(): void
@@ -63,6 +61,15 @@ class Create extends Component
             $this->addError('not-created', $this->settings['not-created']['value']);
         }
 
+    }
+
+    public function updatedDeliveryId(): void
+    {
+        try {
+            $this->emit('deliverySelected', $this->deliveries[$this->delivery_id]['price']);
+        } catch (\Exception $e){
+            $this->addError('delivery', __('error'));
+        }
     }
 
     public function render()

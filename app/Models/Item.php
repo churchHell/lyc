@@ -28,7 +28,7 @@ class Item extends Model
 
     public function scopeActive(Builder $query, bool $active = true): Builder
     {
-        return $query->whereActive($active);
+        return $query->whereActive($active)->whereHas('categories', fn($query) => $query->whereActive(1));
     }
 
     public function getImageAttribute(): Image

@@ -12,9 +12,17 @@
 
     <hr>
 
+    @if($deliveryPrice)
+        <div class="flex justify-end">
+            <div>
+                {{ __('delivery') }}: {{ renderPrice($deliveryPrice) }}
+            </div>
+        </div>
+    @endif
+
     <div class="flex justify-end">
         <div>
-            {{ __('sum') }}: {{ renderPrice($cart->price) }}
+            {{ __('sum') }}: {{ renderPrice($cart->price + ($deliveryPrice ?? 0)) }}
 
         </div>
     </div>

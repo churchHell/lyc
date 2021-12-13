@@ -10,19 +10,22 @@
     </div>
 
     <div class="xs">
-        {{ $order['delivery']['name'] }}
+        {{ $order['delivery']['name'] }}:
+        <span class="font-bold">{{ $order['delivery']['price'] }}</span>
     </div>
 
     <div class="xs flex flex-col col-span-4">
         @foreach($order['purchases'] as $purchase)
             <a href="{{ route('item.show', [$purchase['item']['categories'][0]['slug'], $purchase['item']['slug']]) }}">
                 {{ $purchase['item']['name'] }}
+                <span class="font-bold">({{ renderPrice($purchase['price'])  }})</span>
             </a>
         @endforeach
     </div>
 
     <div class="xs">
         {{ renderPrice($order['price']) }}
+        <div class="font-bold">{{ renderPrice($order['price'] + $order['delivery']['price']) }}</div>
     </div>
 
     <div wire:click="$set('commentEdit', true)" class="xs col-span-2 cursor-pointer">

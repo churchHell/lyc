@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="space-x-1">
-        <x-checkbox wire:click="activate" cond="{{$active}}"></x-checkbox>
+        <x-checkbox wire:click="activate" cond="{{$active}}" class="s"></x-checkbox>
         <a href="{{ route('admin.items.edit', [$item['id']]) }}"
            class="btn s success">{{ __('edit') }}</a>
         {{--                        <x-button wire:click="update({{ $item->id }})" class="s success">{{ __('edit') }}</x-button>--}}

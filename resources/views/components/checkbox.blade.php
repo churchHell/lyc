@@ -3,7 +3,7 @@
 <button 
     {{ $attributes->wire('click') }}
     wire:click.prevent="$toggle('{{$prop}}')"
-    class="s {{ $cond ? 'success' : 'danger' }}"
+    {{ $attributes->merge(['class' => " ".((bool)$cond ? 'success' : 'danger')]) }}
 >
 
     {{ __(!empty($slot->toHtml()) ? $slot : Arr::last(explode('.', $prop))) }}
