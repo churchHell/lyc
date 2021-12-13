@@ -48,6 +48,6 @@
 
     @if($items->count() > 0)
         {{ $items->links() }}
-    @endifs
+    @endif
 
 </div>
