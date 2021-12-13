@@ -1,11 +1,11 @@
 <div class="space-y-1">
-    <div class="grid grid-cols-7 gap-4">
+    <div class="grid grid-cols-9 gap-4">
             
-        <div class="col-span-2">
+        <div class="col-span-3">
             {{ $delivery['name'] }}
         </div>
 
-        <div class="col-span-2">
+        <div class="col-span-3">
             {{ $delivery['description'] }}
         </div>
 
