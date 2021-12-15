@@ -21,6 +21,14 @@ class BuilderMixin
         };
     }
 
+    public function toggle()
+    {
+        return function (string $col): bool
+        {
+            return $this->model->update([$col => \DB::raw('NOT '.$col)]);
+        };
+    }
+
     public function updateIf()
     {   
         return function (bool $condition = false, array $data = []): bool

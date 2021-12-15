@@ -17,13 +17,17 @@ class BaseCrud extends Component
     public ?string $description = '';
     public string $name = '';
     public string $price = '';
+    public bool $active_free_price = false;
+    public string $free_price = '';
 
     protected function rules()
     {
         return [
             'description' => 'string',
             'name' => 'required|string',
-            'price' => ['required', new Price()]
+            'price' => ['required', new Price()],
+            'active_free_price' => 'required|boolean',
+            'free_price' => [new Price()]
         ];
     }
 

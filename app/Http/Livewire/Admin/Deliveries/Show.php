@@ -34,6 +34,14 @@ class Show extends Component
         $this->delivery['active'] = $delivery->active;
     }
 
+    public function activateFreePrice(): void
+    {
+        $delivery = $this->getModelWithAuthorize('update', $this->delivery['id']);
+        if($delivery->toggle('active_free_price')){
+            $this->delivery['active_free_price'] = $delivery->fresh()->active_free_price;
+        }
+    }
+
     public function delete(): void
     {
         $result = $this->crudDelete($this->delivery['id']);

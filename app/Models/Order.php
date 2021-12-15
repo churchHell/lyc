@@ -16,7 +16,7 @@ class Order extends Model
     use HasFactory, FullName, Phone, TotalPrice;
 
     protected $fillable = ['name', 'surname', 'patronymic', 'phone', 'index', 'city', 'address', 'delivery_id', 'comment', 'status_id'];
-    protected $casts = ['name' => Name::class, 'surname' => Name::class];
+    protected $casts = ['name' => Name::class, 'surname' => Name::class, 'created_at' => 'datetime'];
 
     public function purchases(): BelongsToMany
     {
@@ -32,5 +32,10 @@ class Order extends Model
     {
         return $this->belongsTo(Status::class);
     }
+
+    public function getCreatedAttribute(): string
+   {
+       return $this->created_at->format('d.m.Y в H:i');
+   }
     
 }

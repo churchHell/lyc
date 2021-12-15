@@ -6,6 +6,7 @@ use App\Models\{Delivery, Order, SettingsKey};
 use App\Rules\Phone;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Create extends Component
@@ -22,11 +23,23 @@ class Create extends Component
     public array $deliveries = [];
     public ?int $delivery_id = null;
 
-    protected array $rules = [
-        'name' => 'required|string',
-        'surname' => 'required|string',
-        'delivery_id' => 'required|exists:deliveries,id',
-    ];
+    public bool $needAddress = false;
+    public string $index = '';
+    public string $city = '';
+    public string $address = '';
+
+    protected function rules(): array
+    {
+        return [
+            'name' => 'required|string',
+            'surname' => 'required|string',
+            'delivery_id' => 'required|exists:deliveries,id',
+            'phone' => ['required', new Phone],
+            'index' => [Rule::requiredIf($this->needAddress), 'integer', 'min:1'],
+            'city' => [Rule::requiredIf($this->needAddress), 'string'],
+            'address' => [Rule::requiredIf($this->needAddress), 'string'],
+        ];
+    }
 
     public function mount()
     {
@@ -40,16 +53,11 @@ class Create extends Component
 
     public function store(): void
     {
-        $validated = array_merge(
-            $this->validate(),
-            Validator::make(['phone' => $this->phone], ['phone' => ['required', new Phone]])->validate()
-        );
-
         $cart = cartRepository()->getCart();
 
         \DB::beginTransaction();
 
-        $order = Order::create($validated);
+        $order = Order::create($this->validate());
         $order->purchases()->attach($cart->purchases->pluck('id')->toArray());
 
         \DB::commit();
@@ -66,10 +74,12 @@ class Create extends Component
     public function updatedDeliveryId(): void
     {
         try {
-            $this->emit('deliverySelected', $this->deliveries[$this->delivery_id]['price']);
+            $delivery = $this->deliveries[$this->delivery_id];
         } catch (\Exception $e){
             $this->addError('delivery', __('error'));
         }
+        $this->emit('deliverySelected', $delivery);
+        $this->needAddress = $delivery['need_address'];
     }
 
     public function render()

@@ -37,7 +37,7 @@ trait Crud
         return $model->update($data);
     }
 
-    private function getModelWithAuthorize(string $action, int $id): Model
+    public function getModelWithAuthorize(string $action, int $id): Model
     {
         $model = app()->make($this->class)->findOrFail($id);
         $this->authorize($action, $model);

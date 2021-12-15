@@ -13,6 +13,8 @@ class Edit extends BaseCrud
         $this->name = $delivery['name'];
         $this->description = $delivery['description'];
         $this->price = $delivery['price'];
+        $this->active_free_price = $delivery['active_free_price'];
+        $this->free_price = $delivery['free_price'];
     }
 
     public function update(): void

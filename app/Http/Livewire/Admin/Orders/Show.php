@@ -2,25 +2,35 @@
 
 namespace App\Http\Livewire\Admin\Orders;
 
-use App\Models\{Order, Status};
 use App\Http\Livewire\BaseComponent;
+use App\Http\Livewire\Traits\Crud;
+use App\Models\Delivery;
+use App\Models\{Order, Status};
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Show extends BaseComponent
 {
 
-    use AuthorizesRequests;
+    use AuthorizesRequests, Crud;
+
+    protected string $class = Order::class;
 
     public bool $commentEdit = false;
+    public array $deliveries = [];
     public array $order;
-    public array $statuses;
+    public array $statuses = [];
 
-    public function mount(Order $orderModel, array $allStatuses)
+    protected array $rules = [
+        'order.delivery_id' => 'required|integer|min:1|exists:deliveries,id'
+    ];
+
+    public function mount(Order $orderModel)
     {
         $orderModel->full_name = $orderModel->full_name;
         $orderModel->price = $orderModel->price;
+        $orderModel->created = $orderModel->created;
         $this->order = $orderModel->toArray();
-        $this->statuses = $allStatuses;
+        $this->calculateDeliveryPrice();
     }
 
     public function status(int $id)
@@ -40,6 +50,21 @@ class Show extends BaseComponent
         $validated = $this->validate(['order.comment' => 'string']);
         $order->update($validated['order']);
         $this->commentEdit = false;
+    }
+
+    public function updatedOrderDeliveryId(): void
+    {
+        $updated = $this->crudUpdate($this->order['id'], $this->validate()['order']);
+        if($updated){
+            $this->calculateDeliveryPrice();
+        }
+    }
+
+    private function calculateDeliveryPrice(): void
+    {
+        $delivery = new Delivery($this->deliveries[$this->order['delivery_id']]);
+        $delivery->setWithDiscount($this->order['price']);
+        $this->order['delivery'] =  $delivery->toArray();
     }
 
     public function render()

@@ -9,7 +9,7 @@ class Create extends BaseCrud
     {
         if($this->crudCreate($this->validate())->exists){
             $this->emit('deliveryCreated');
-            $this->reset(['description', 'name', 'price']);
+            $this->reset(['description', 'name', 'price', 'active_free_price', 'free_price']);
         }
         
     }

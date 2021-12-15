@@ -1,6 +1,6 @@
 @props(['name' => null])
 
-<div class="flex flex-col">
+<div class="flex flex-col {{ $attributes->onlyClasses(['w-full']) }}">
         <input
                 {{ $attributes->whereStartsWith(['wire:model']) }}
                 placeholder="{{ $attributes->placeholder() }}"

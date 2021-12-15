@@ -12,8 +12,7 @@ class PurchasePolicy
 
     public function update(User $user = null, Purchase $purchase)
     {
-        dd($purchase);
-        return $this->can($user, $purchase);
+        return !$purchase->order->first() && $this->can($user, $purchase);
     }
 
     public function delete(User $user = null, Purchase $purchase)

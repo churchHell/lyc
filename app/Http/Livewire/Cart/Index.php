@@ -13,6 +13,7 @@ class Index extends BaseComponent
 
     public bool $orderCreated = false;
     public array $settings = [];
+    public ?array $delivery = null;
     public ?string $deliveryPrice = null;
 
     protected $listeners = ['orderCreated', 'render', 'deliverySelected'];
@@ -37,14 +38,29 @@ class Index extends BaseComponent
         $this->render();
     }
 
-    public function deliverySelected(string $deliveryPrice): void
+    public function deliverySelected(array $delivery): void
     {
-        $this->deliveryPrice = $deliveryPrice;
+        $this->delivery = $delivery;
+        $this->calculateDeliveryPrice();
+    }
+
+    private function calculateDeliveryPrice(): void
+    {
+        if(!$this->delivery){
+            return;
+        }
+        $cart = cartRepository()->getCart()->load('purchases');
+        $this->deliveryPrice = $this->delivery['active_free_price']
+            && $this->delivery['free_price']
+            && $cart->price >= $this->delivery['free_price']
+            ? 0
+            : $this->delivery['price'];
     }
 
     public function render()
     {
         $cart = cartRepository()->getCart()->load('purchases');
+        $this->calculateDeliveryPrice();
         return view('livewire.cart.index', compact('cart'));
     }
 }

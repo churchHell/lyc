@@ -1,6 +1,6 @@
 <div class="space-y-4">
 
-    <form wire:submit.prevent="render" class="flex space-x-2">
+    <form wire:submit.prevent="render" class="flex space-x-2 w-full">
         <x-input wire:model="search" wire:keydown.delay.1s="render" class="s w-full"></x-input>
         <button type="submit" class="s success">{{ __('search') }}</button>
     </form>

@@ -1,6 +1,6 @@
 <div class="">
 
-    <div class="py-2 flex space-x-2">
+    <div class="py-2 flex space-x-2 w-full">
 
         <input wire:model="name" type="text" class="s" placeholder="{{ __('name') }}">
         <x-button wire:click.prevent="store" class="s success">{{ __('create') }}</x-button>

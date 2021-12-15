@@ -6,6 +6,6 @@
     {{ $attributes->merge(['class' => " ".((bool)$cond ? 'success' : 'danger')]) }}
 >
 
-    {{ __(!empty($slot->toHtml()) ? $slot : Arr::last(explode('.', $prop))) }}
+    {{ __(!empty($slot->toHtml()) ? $slot->toHtml() : Arr::last(explode('.', $prop))) }}
 
 </button>

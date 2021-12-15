@@ -30,7 +30,7 @@ if (!function_exists('renderPrice')) {
 }
 
 if (!function_exists('renderPhone')) {
-    function renderPhone(int $phone): string
+    function renderPhone(string $phone): string
     {
         return $phone;
         $result = '';

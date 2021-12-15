@@ -33,6 +33,9 @@
                                     <span>{{ renderPrice($delivery['price']) }}</span>
                                 </div>
                                 <div class="italic">{{ $delivery['description'] }}</div>
+                                @if((bool)$delivery['active_free_price'])
+                                    <div class="">{{ __('free-delivery').' '.__('from') }}: {{ $delivery['free_price'] }}</div>
+                                @endif
                             </div>
                         </div>
                     @empty
@@ -41,6 +44,24 @@
                     <x-error>delivery</x-error>
                     <x-error>delivery_id</x-error>
                 </div>
+
+                @if($needAddress)
+                    <div class="space-y-2">
+                        <div class="">
+                            <div>{{ __('index') }}:</div>
+                            <x-input wire:model.lazy="index" class="s"></x-input>
+                        </div>
+                        <div class="">
+                            <div>{{ __('city') }}:</div>
+                            <x-input wire:model.lazy="city" class="s"></x-input>
+                        </div>
+                        <div class="">
+                            <div>{{ __('address') }}:</div>
+                            <x-input wire:model.lazy="address" class="s"></x-input>
+                        </div>
+                    </div>
+                @endif
+                
 
                 <div class="">
                     <x-button type="submit" class="s success">{{ __('arrange') }}</x-button>

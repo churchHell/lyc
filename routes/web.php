@@ -44,6 +44,7 @@ Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function
     Route::resource('/properties', PropertyController::class)->only('index', 'create');
     Route::resource('/settings', SettingController::class)->only('index');
     Route::resource('/units', UnitController::class)->only('index');
+    Route::resource('/users', App\Http\Controllers\Admin\UserController::class)->only('index');
 });
 
 Route::middleware('auth')->group(function () {

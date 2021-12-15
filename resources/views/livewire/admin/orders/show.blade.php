@@ -1,7 +1,18 @@
 <div class="p-2 grid grid-cols-12 rounded shadow-md bg-{{$order['status']['color']}}-100">
 
-    <div class="xs">
-        {{ $order['id'] }}
+    <div class="xs space-y-1">
+        <div class="font-bold">{{ $order['id'] }}</div>
+        <div>{{ $order['created'] }}</div>
+        <div x-data="{ statuses:false }" class="space-y-1">
+            <x-button @click="statuses=!statuses" @click.away="statuses=false"
+                      class="xs success">{{ $order['status']['name'] }}</x-button>
+            <div x-show="statuses" class="absolute space-y-1 bg-red-200" style="display: none;">
+                @foreach(Arr::except($statuses, [$order['status']['id']]) as $status)
+                    <x-button wire:click="status({{$status['id']}})" success="" error=""
+                              class="xs danger">{{ $status['name'] }}</x-button>
+                @endforeach
+            </div>
+        </div>
     </div>
 
     <div class="xs col-span-2">
@@ -9,16 +20,32 @@
         <div>{{ $order['phone'] }}</div>
     </div>
 
-    <div class="xs">
-        {{ $order['delivery']['name'] }}:
-        <span class="font-bold">{{ $order['delivery']['price'] }}</span>
+    <div class="xs col-span-2">
+        <div class="">
+            <select wire:model="order.delivery_id" class="xs border rounded pr-2 success">
+                @forelse ($deliveries as $delivery)
+                    <option value="{{ $delivery['id'] }}" class="text-white bg-blueGray-800">
+                        {{ $delivery['name'] }}:
+                        {{ renderPrice($delivery['price']) }}
+                    </option>
+                @empty
+                    {{ __('empty') }}
+                @endforelse
+            </select>
+        </div>
+        <div class="">
+            @if($order['index']) {{ $order['index'] }}, @endif
+            @if($order['city']) {{ $order['city'] }}, @endif
+            @if($order['address']) {{ $order['address'] }}@endif
+        </div>
     </div>
 
     <div class="xs flex flex-col col-span-4">
         @foreach($order['purchases'] as $purchase)
             <a href="{{ route('item.show', [$purchase['item']['categories'][0]['slug'], $purchase['item']['slug']]) }}">
                 {{ $purchase['item']['name'] }}
-                <span class="font-bold">({{ renderPrice($purchase['price'])  }})</span>
+                <span class="font-bold">({{ renderPrice($purchase['price']) }})</span>
+                <span class="text-primary">[{{ $purchase['qty'] }}  {{ __('thing') }}]</span>
             </a>
         @endforeach
     </div>
@@ -39,15 +66,6 @@
 
     </div>
 
-    <div x-data="{ statuses:false }" class="xs space-y-1">
-        <x-button @click="statuses=!statuses" @click.away="statuses=false"
-                  class="xs success">{{ $order['status']['name'] }}</x-button>
-        <div x-show="statuses" class="absolute space-y-1 bg-red-200" style="display: none;">
-            @foreach(Arr::except($statuses, [$order['status']['id']]) as $status)
-                <x-button wire:click="status({{$status['id']}})" success="" error=""
-                          class="xs danger">{{ $status['name'] }}</x-button>
-            @endforeach
-        </div>
-    </div>
+    
 
 </div>

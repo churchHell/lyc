@@ -11,7 +11,7 @@
     @livewireStyles
     @yield('styles')
 </head>
-<body class="text-xs font-sans space-y-8 h-screen flex flex-col">
+<body class="text-xs font-sans h-screen flex flex-col relative">
 
 @if(false)
 <livewire:toasts/>

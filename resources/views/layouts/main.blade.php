@@ -10,4 +10,8 @@
         @yield('content')
     </div>
 
+    
+
 @endsection
+
+@include('cookieConsent::index')

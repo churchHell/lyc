@@ -48,7 +48,7 @@
     </div>
 </header>
 
-<section class="container flex flex-grow flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 space-x-0 md:space-x-4">
+<section class="container py-8 flex flex-grow flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 space-x-0 md:space-x-4">
 
     @yield('app-content')
 

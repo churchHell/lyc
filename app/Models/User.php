@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\Name;
+use App\Models\Traits\FullName;
 use App\Models\Traits\Phone;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, Phone;
+    use HasApiTokens, HasFactory, Notifiable, Phone, FullName;
 
     protected $fillable = [
         'name',
@@ -22,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'cart_id',
+        'role_id',
     ];
 
     protected $hidden = [
@@ -36,6 +38,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function cart(): HasOne
     {
         return $this->hasOne(Cart::class);
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
     }
 
     public function isAdmin(): bool
