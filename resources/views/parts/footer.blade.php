@@ -1,5 +1,5 @@
 <footer class="bg-primary text-white py-8">
-    <div class="container flex justify-between flex-col md:flex-row items-center space-y-4 md:space-y-0">
+    <div class="container flex justify-between flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0">
         <div class="">
             {!! $settings->get('about')->value !!}
         </div>

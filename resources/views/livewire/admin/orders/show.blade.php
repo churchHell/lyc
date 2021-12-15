@@ -22,7 +22,7 @@
 
     <div class="xs col-span-2">
         <div class="">
-            <select wire:model="order.delivery_id" class="xs border rounded pr-2 success">
+            <select wire:model="order.delivery_id" class="xs border rounded pr-2 success w-full">
                 @forelse ($deliveries as $delivery)
                     <option value="{{ $delivery['id'] }}" class="text-white bg-blueGray-800">
                         {{ $delivery['name'] }}:
