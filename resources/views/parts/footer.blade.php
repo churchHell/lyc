@@ -1,4 +1,4 @@
-<footer class="bg-primary text-white py-8">
+<footer class="py-8 border-t">
     <div class="container flex justify-between flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0">
         <div class="">
             {!! $settings->get('about')->value !!}
@@ -14,5 +14,6 @@
                 <a href="{{ route('page.index', [$page->slug]) }}" title="{{ $page->name }}" class="">{{ $page->name }}</a>
             @endforeach
         </div>
+        <img src="{{ Storage::url('payments_min.jpg') }}" class="h-60" alt="">
     </div>
 </footer>
