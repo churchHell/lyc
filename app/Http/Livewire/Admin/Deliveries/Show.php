@@ -50,6 +50,14 @@ class Show extends Component
         }
     }
 
+    public function needAddress(): void
+    {
+        $toggled = $this->crudToggle($this->delivery['id'], 'need_address');
+        if($toggled){
+            $this->delivery['need_address'] = !$this->delivery['need_address'];
+        }
+    }
+
     public function updated(): void
     {
         $this->delivery = Delivery::findOrFail($this->delivery['id'])->toArray();

@@ -40,6 +40,7 @@
 	"logout" : "Выйти",
 	"main" : "Главная",
 	"name" : "Имя",
+	"need_address" : "Нужен адрес",
 	"new_password" : "Новый пароль",
 	"new_password_confirmation" : "Новый пароль еще раз",
 	"no" : "Нет",

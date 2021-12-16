@@ -13,7 +13,7 @@ class Delivery extends Model
 {
     use HasFactory, Active;
 
-    protected $fillable = ['name', 'description', 'price', 'active_free_price', 'free_price', 'active'];
+    protected $fillable = ['name', 'description', 'price', 'active_free_price', 'free_price', 'active', 'need_address'];
     protected $casts = ['price' => Price::class, 'free_price' => Price::class];
 
     public function orders(): HasMany

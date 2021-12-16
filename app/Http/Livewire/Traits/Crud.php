@@ -14,9 +14,18 @@ trait Crud
     {
         $model = $this->getModelWithAuthorize('update', $id);
         $model->activeToggle();
-        $model = $newModel->fresh();
-        $this->crudEmitResult($newModel->activate != $model->active);
-        return $newModel;
+        $toggled = !empty($model->getChanges()['active']);
+        $this->crudEmitResult($toggled);
+        return $model;
+    }
+
+    public function crudToggle(int $id, string $row): bool
+    {
+        $model = $this->getModelWithAuthorize('update', $id);
+        $model->toggle($row);
+        $toggled = !empty($model->getChanges()[$row]);
+        $this->crudEmitResult($toggled);
+        return $toggled;
     }
 
     public function crudCreate(array $data): Model
@@ -45,9 +54,14 @@ trait Crud
 
     public function getModelWithAuthorize(string $action, int $id): Model
     {
-        $model = app()->make($this->class)->findOrFail($id);
+        $model = $this->getModel($id);
         $this->authorize($action, $model);
         return $model;
+    }
+
+    private function getModel(int $id): Model
+    {
+        return app()->make($this->class)->findOrFail($id);
     }
 
     private function crudEmitResult(bool $condition): void
