@@ -31,7 +31,7 @@
 	"error" : "Ошибка",
 	"filters" : "Фильтры",
 	"forgot-password" : "Забыли пароль?",
-	"free-delivery" : "Бесплатная доставка",
+	"free_delivery" : "Бесплатная доставка",
 	"from" : "от",
 	"index" : "Индекс",
 	"item" : "Товар",

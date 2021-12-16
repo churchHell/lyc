@@ -1,9 +1,9 @@
 <div class="space-y-4">
-        <div class="grid grid-cols-11 rounded shadow-lg text-white bg-blueGray-800 px-2 py-3">
+        <div class="grid grid-cols-12 gap-4 rounded shadow-lg text-white bg-blueGray-800 px-2 py-3">
                 <div class="xs col-span-3">{{ __('name') }}</div>
                 <div class="xs col-span-3">{{ __('description') }}</div>
                 <div class="xs">{{ __('price') }}</div>
-                <div class="xs col-span-2">{{ __('free_delivery') }}</div>
+                <div class="xs col-span-3">{{ __('free_delivery') }}</div>
                 <div class="xs col-span-2">{{ __('actions') }}</div>
         </div>
         <div class="space-y-1">

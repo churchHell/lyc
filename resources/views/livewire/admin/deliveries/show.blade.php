@@ -1,5 +1,5 @@
 <div class="space-y-1">
-    <div class="grid grid-cols-11 gap-4">
+    <div class="grid grid-cols-12 gap-4">
             
         <div class="col-span-3">
             {{ $delivery['name'] }}
@@ -13,7 +13,7 @@
             {{ $delivery['price'] }}
         </div>
 
-        <div class="space-x-2">
+        <div class="space-x-3">
             <x-checkbox wire:click.prevent="activateFreePrice" cond="{{ $delivery['active_free_price'] }}" class="xs"></x-checkbox>
             {{ $delivery['free_price'] }}
         </div>
