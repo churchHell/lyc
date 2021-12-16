@@ -9,7 +9,10 @@ trait FullName
 
     public function getFullNameAttribute(): string
     {
-        return $this->surname . ' ' . $this->name;
+        return $this->surname 
+            . ' ' 
+            . $this->name 
+            . (!empty($this->patronymic) ? ' ' . $this->patronymic : '');
     }
 
 }

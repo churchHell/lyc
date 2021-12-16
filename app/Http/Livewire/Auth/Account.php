@@ -17,10 +17,6 @@ class Account extends \App\Http\Livewire\BaseComponent
     public string $surname;
     public string $phone;
 
-    public string $password = '';
-    public string $new_password = '';
-    public string $new_password_confirmation = '';
-
     protected $rules = [
         'name' => ['required', 'string', 'max:255'],
         'surname' => ['required', 'string', 'max:255'],
@@ -38,16 +34,6 @@ class Account extends \App\Http\Livewire\BaseComponent
     {
         $validated = $this->validate();
         $this->crudUpdate(auth()->id(), $validated);
-    }
-
-    public function changePassword(): void
-    {
-        $this->validate([
-            'password' => ['required', 'current_password'],
-            'new_password' => ['required', 'string', 'confirmed', 'min:8', 'max:50'],
-        ]);
-
-        $this->queryWithResult( fn() => auth()->user()->update(['password' => Hash::make($this->new_password)]) );
     }
 
     public function render()

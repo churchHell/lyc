@@ -25,6 +25,7 @@ class Create extends Component
 
     public bool $needAddress = false;
     public string $index = '';
+    public string $patronymic = '';
     public string $city = '';
     public string $address = '';
 
@@ -35,6 +36,7 @@ class Create extends Component
             'surname' => 'required|string',
             'delivery_id' => 'required|exists:deliveries,id',
             'phone' => ['required', new Phone],
+            'patronymic' => [Rule::requiredIf($this->needAddress), 'string'],
             'index' => [Rule::requiredIf($this->needAddress), 'integer', 'min:1'],
             'city' => [Rule::requiredIf($this->needAddress), 'string'],
             'address' => [Rule::requiredIf($this->needAddress), 'string'],

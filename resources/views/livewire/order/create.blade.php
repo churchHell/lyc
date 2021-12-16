@@ -48,6 +48,10 @@
                 @if($needAddress)
                     <div class="space-y-2">
                         <div class="">
+                            <div>{{ __('patronymic') }}:</div>
+                            <x-input wire:model.lazy="patronymic" class="s"></x-input>
+                        </div>
+                        <div class="">
                             <div>{{ __('index') }}:</div>
                             <x-input wire:model.lazy="index" class="s"></x-input>
                         </div>

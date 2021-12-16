@@ -49,6 +49,7 @@
 	"password" : "Пароль",
 	"password_confirmation" : "Пароль еще раз",
 	"password-reset" : "Сброс пароля",
+	"patronymic" : "Отчество",
 	"phone" : "Телефон",
 	"price" : "Цена",
 	"properties" : "Параметры",
