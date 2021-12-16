@@ -2,12 +2,20 @@
 
 namespace App\Http\Livewire\Admin\Statuses;
 
+use App\Models\Status;
 use Livewire\Component;
 
 class Index extends Component
 {
+
+    protected $listeners = [
+        'statusCreated' => 'render',
+        'statusDeleted' => 'render'
+    ];
+
     public function render()
     {
-        return view('livewire.admin.statuses.index');
+        $statuses = Status::get();
+        return view('livewire.admin.statuses.index', compact('statuses'));
     }
 }

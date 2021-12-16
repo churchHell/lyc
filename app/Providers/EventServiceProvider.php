@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\{Category, Image, Item, Order, Page, Property, Purchase, Unit};
-use App\Observers\{CategoryObserver, ImageObserver, ItemObserver, OrderObserver, PageObserver, PropertyObserver, PurchaseObserver, UnitObserver};
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -30,13 +28,14 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Category::observe(CategoryObserver::class);
-        Image::observe(ImageObserver::class);
-        Item::observe(ItemObserver::class);
-        Order::observe(OrderObserver::class);
-        Page::observe(PageObserver::class);
-        Property::observe(PropertyObserver::class);
-        Purchase::observe(PurchaseObserver::class);
-        Unit::observe(UnitObserver::class);
+        \App\Models\Category::observe(\App\Observers\CategoryObserver::class);
+        \App\Models\Image::observe(\App\Observers\ImageObserver::class);
+        \App\Models\Item::observe(\App\Observers\ItemObserver::class);
+        \App\Models\Order::observe(\App\Observers\OrderObserver::class);
+        \App\Models\Page::observe(\App\Observers\PageObserver::class);
+        \App\Models\Property::observe(\App\Observers\PropertyObserver::class);
+        \App\Models\Purchase::observe(\App\Observers\PurchaseObserver::class);
+        \App\Models\Status::observe(\App\Observers\StatusObserver::class);
+        \App\Models\Unit::observe(\App\Observers\UnitObserver::class);
     }
 }

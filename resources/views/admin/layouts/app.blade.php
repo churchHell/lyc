@@ -14,6 +14,7 @@
 			<a href="{{ route('admin.pages.index') }}">{{ __('pages') }}</a>
 			<a href="{{ route('admin.deliveries.index') }}">{{ __('deliveries') }}</a>
 			<a href="{{ route('admin.users.index') }}">{{ __('users') }}</a>
+			<a href="{{ route('admin.statuses.index') }}">{{ __('statuses') }}</a>
 		</div>
 
 		<div class="col-span-11 pl-6 pr-2 py-4">
