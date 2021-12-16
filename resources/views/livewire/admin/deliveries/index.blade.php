@@ -3,8 +3,8 @@
                 <div class="xs col-span-3">{{ __('name') }}</div>
                 <div class="xs col-span-3">{{ __('description') }}</div>
                 <div class="xs">{{ __('price') }}</div>
-                <div class="xs col-span-3">{{ __('free_delivery') }}</div>
-                <div class="xs col-span-2">{{ __('actions') }}</div>
+                <div class="xs col-span-2">{{ __('free_delivery') }}</div>
+                <div class="xs col-span-3">{{ __('actions') }}</div>
         </div>
         <div class="space-y-1">
     @forelse($deliveries as $delivery)
