@@ -52,7 +52,9 @@
 
     <div class="xs">
         {{ renderPrice($order['price']) }}
-        <div class="font-bold">{{ renderPrice($order['price'] + $order['delivery']['price']) }}</div>
+        <div class="font-bold">
+            {{ renderPrice($order['price'] + $order['delivery']['price']) }}
+        </div>
     </div>
 
     <div wire:click="$set('commentEdit', true)" class="xs col-span-2 cursor-pointer">
@@ -63,7 +65,6 @@
                 <x-input wire:model.delay.9999s="order.comment" class="xs"></x-input>
             </form>
         @endif
-
     </div>
 
     

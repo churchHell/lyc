@@ -22,7 +22,7 @@
 
     <div class="flex justify-end">
         <div>
-            {{ __('sum') }}: {{ renderPrice((float)$cart->price + ($deliveryPrice ?? 0)) }}
+            {{ __('sum') }}: {{ renderPrice($cart->price + ($deliveryPrice ?? 0)) }}
 
         </div>
     </div>

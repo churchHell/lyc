@@ -5,9 +5,10 @@ namespace App\Models\Traits;
 trait TotalPrice
 {
 
-    public function getPriceAttribute(): string
+    public function getPriceAttribute(): float
     {
-        return $this->purchases->sum('total');
+        $sum = $this->purchases->sum('total');
+        return $sum;
     }
 
 }
