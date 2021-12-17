@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('surname')->nullable();
             $table->string('patronymic')->nullable();
             $table->string('phone');
-            $table->integer('index')->nullable();
+            $table->string('index')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->foreignId('delivery_id')->constrained();
