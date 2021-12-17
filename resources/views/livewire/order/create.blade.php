@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="italic">{{ $delivery['description'] }}</div>
                                 @if((bool)$delivery['active_free_price'])
-                                    <div class="">{{ __('free-delivery').' '.__('from') }}: {{ $delivery['free_price'] }}</div>
+                                    <div class="">{{ __('free_delivery').' '.__('from') }}: {{ $delivery['free_price'] }}</div>
                                 @endif
                             </div>
                         </div>
