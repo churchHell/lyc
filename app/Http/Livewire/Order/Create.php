@@ -70,13 +70,15 @@ class Create extends Component
         //     $this->addError('not-created', $this->settings['not-created']['value']);
         // }
 
-        dd($order->original_price);
+        $delivery = new Delivery($this->deliveries[$this->delivery_id]);
+        $delivery->setWithDiscount($order->original_price);
+        dd($delivery);
 
         $data = [
             'userName' => config('alpha.login'),
             'password' => config('alpha.password'),
             'orderNumber' => urlencode($order->id), 
-            'amount' => urlencode($order->price),
+            'amount' => urlencode($order->original_price),
             'returnUrl' => 'http://lyc.develophere.ru/order/success'
         ];
 

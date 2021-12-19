@@ -13,7 +13,7 @@
             {{ $delivery['price'] }}
         </div>
 
-        <div class="col-span-2 flex space-x-1">
+        <div class="col-span-2 flex space-x-1 items-start">
             <x-checkbox wire:click.prevent="activateFreePrice" cond="{{ $delivery['active_free_price'] }}" class="xs"></x-checkbox>
             <div>{{ $delivery['free_price'] }}</div>
         </div>
