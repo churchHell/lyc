@@ -53,7 +53,7 @@ class Create extends Component
         $this->deliveries = Delivery::active()->get()->keyBy('id')->toArray();
     }
 
-    public function store(): void
+    public function store()
     {
         $cart = cartRepository()->getCart();
 
@@ -62,14 +62,26 @@ class Create extends Component
         $order = Order::create($this->validate());
         $order->purchases()->attach($cart->purchases->pluck('id')->toArray());
 
-        \DB::commit();
+        // \DB::commit();
 
-        if(!empty($order) && $order->exists){
-            $this->emit('orderCreated');
-            $this->emitTo('cart.icon', 'render');
-        } else {
-            $this->addError('not-created', $this->settings['not-created']['value']);
-        }
+        // if(!empty($order) && $order->exists){
+        //     $this->emit('orderCreated');
+        //     $this->emitTo('cart.icon', 'render');
+        // } else {
+        //     $this->addError('not-created', $this->settings['not-created']['value']);
+        // }
+
+        $data = [
+            'userName' => config('alpha.login'),
+            'password' => config('alpha.password'),
+            'orderNumber' => urlencode($order->id), 
+            'amount' => urlencode($order->price),
+            'returnUrl' => 'http://lyc.develophere.ru/order/success'
+        ];
+
+        $response = alphaService()->gateway('https://web.rbsuat.com/ab_by/rest/register.do', $data);
+
+        return redirect()->to($response['formUrl']);
 
     }
 

@@ -55,10 +55,13 @@ Route::middleware('auth')->group(function () {
 });
 
 Auth::routes(['except' => 'logout', 'verify' => true]);
+Route::get('/order/success', [App\Http\Controllers\OrderController::class, 'success'])->name('order.success');
+Route::get('/order/error', [App\Http\Controllers\OrderController::class, 'error'])->name('order.error');
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/page/{page:slug}', [PageController::class, 'show'])->name('page.index');
 Route::get('/{slug}', [CategoryController::class, 'index'])->name('category.index')->where('slug', '[0-9A-Za-z\-]+');
 Route::get('/{category}/{item}', [ItemController::class, 'show'])->name('item.show')->where('category', '[0-9A-Za-z\-]+')->where('item', '[0-9A-Za-z\-]+');
 Route::resource('/cart', CartController::class)->only('index');
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

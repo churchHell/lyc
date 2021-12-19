@@ -85,3 +85,10 @@ if (!function_exists('cartService')) {
         return app(\App\Services\CartServiceInterface::class);
     }
 }
+
+if (!function_exists('alphaService')) {
+    function alphaService()
+    {
+        return app(\App\Services\AlphaServiceInterface::class);
+    }
+}

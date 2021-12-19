@@ -18,6 +18,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\CartService'
         );
         $this->app->bind(
+            'App\Services\AlphaServiceInterface',
+            'App\Services\AlphaService'
+        );
+        $this->app->bind(
             'App\Repositories\CartRepositoryInterface',
             'App\Repositories\CartRepository'
         );
