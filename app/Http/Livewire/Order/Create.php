@@ -72,6 +72,7 @@ class Create extends Component
 
         $delivery = new Delivery($this->deliveries[$this->delivery_id]);
         $delivery->setWithDiscount($order->original_price);
+        dd($order->original_price, $delivery->price);
 
         $data = [
             'userName' => config('alpha.login'),
