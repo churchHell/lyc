@@ -72,15 +72,15 @@ class Create extends Component
 
         $delivery = new Delivery($this->deliveries[$this->delivery_id]);
         $delivery->setWithDiscount($order->original_price);
-        dd($delivery);
 
         $data = [
             'userName' => config('alpha.login'),
             'password' => config('alpha.password'),
             'orderNumber' => urlencode($order->id), 
-            'amount' => urlencode($order->original_price),
+            'amount' => urlencode($order->original_price + $delivery->price),
             'returnUrl' => 'http://lyc.develophere.ru/order/success'
         ];
+        dd($data);
 
         $response = alphaService()->gateway(config('alpha.registerDo'), $data);
 
