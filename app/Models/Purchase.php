@@ -38,6 +38,11 @@ class Purchase extends Model
         return $this->qty * $this->price;
     }
 
+    public function getOriginalTotalAttribute()
+    {
+        return $this->qty * $this->getOriginal('price');
+    }
+
    public function getCreatedAttribute(): string
    {
        return $this->created_at->format('d.m.Y в H:i');

@@ -65,11 +65,12 @@ class Create extends Component
         // \DB::commit();
 
         // if(!empty($order) && $order->exists){
-        //     $this->emit('orderCreated');
         //     $this->emitTo('cart.icon', 'render');
         // } else {
         //     $this->addError('not-created', $this->settings['not-created']['value']);
         // }
+
+        dd($order->original_price);
 
         $data = [
             'userName' => config('alpha.login'),
@@ -79,7 +80,7 @@ class Create extends Component
             'returnUrl' => 'http://lyc.develophere.ru/order/success'
         ];
 
-        $response = alphaService()->gateway('https://web.rbsuat.com/ab_by/rest/register.do', $data);
+        $response = alphaService()->gateway(, $data);
 
         return redirect()->to($response['formUrl']);
 
