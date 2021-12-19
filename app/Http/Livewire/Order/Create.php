@@ -80,7 +80,7 @@ class Create extends Component
             'returnUrl' => 'http://lyc.develophere.ru/order/success'
         ];
 
-        $response = alphaService()->gateway(, $data);
+        $response = alphaService()->gateway(config('alpha.registerDo'), $data);
 
         return redirect()->to($response['formUrl']);
 
