@@ -22,7 +22,7 @@ if (!function_exists('dateToShow')) {
 }
 
 if (!function_exists('renderPrice')) {
-    function renderPrice(int $price)
+    function renderPrice(?int $price)
     {
         return number_format($price/100, 2, '.', ' ') . ' BYN';
     }
