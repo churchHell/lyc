@@ -28,10 +28,22 @@ class Delivery extends Model
 
     public function setWithDiscount($price): void
     {
-        $this->price =  $this->active_free_price
+        if($this->active_free_price
             && !empty($this->free_price)
             && $price >= $this->free_price
-            ? 0
-            : $this->price;
+        ){
+            $this->price = 0;
+        }
+    }
+
+    public function getWithDiscount(int $price): int
+    {
+        if($this->active_free_price 
+            && !empty($this->free_price)
+            && $price > $this->free_price
+        ){
+            return 0;
+        }
+        return $this->price;
     }
 }

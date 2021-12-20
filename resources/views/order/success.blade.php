@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
-@section('app-content')
+@section('content')
 
-    success
+    <div class="success s">{{ $message }}</div>
 
 @endsection
 

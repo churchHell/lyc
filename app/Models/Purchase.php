@@ -16,7 +16,7 @@ class Purchase extends Model
 
     protected $fillable = ['cart_id', 'item_id', 'qty', 'price'];
     protected $with = ['item'];
-    protected $casts = ['created_at' => 'datetime', 'price' => Price::class];
+    protected $casts = ['created_at' => 'datetime'];
 
     public function cart(): BelongsTo
     {
@@ -36,11 +36,6 @@ class Purchase extends Model
     public function getTotalAttribute()
     {
         return $this->qty * $this->price;
-    }
-
-    public function getOriginalTotalAttribute()
-    {
-        return $this->qty * $this->getOriginal('price');
     }
 
    public function getCreatedAttribute(): string

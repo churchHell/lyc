@@ -29,6 +29,8 @@ class Create extends Component
     public string $city = '';
     public string $address = '';
 
+    // protected $listeners = ['cartUpdated'];
+
     protected function rules(): array
     {
         return [
@@ -62,30 +64,22 @@ class Create extends Component
         $order = Order::create($this->validate());
         $order->purchases()->attach($cart->purchases->pluck('id')->toArray());
 
-        // \DB::commit();
+        \DB::commit();
 
-        // if(!empty($order) && $order->exists){
-        //     $this->emitTo('cart.icon', 'render');
-        // } else {
-        //     $this->addError('not-created', $this->settings['not-created']['value']);
-        // }
+        if(!empty($order) && $order->exists){
+            $response = alphaService()->gateway(
+                config('alpha.registerDo'),
+                alphaService()->getRegisterData($order)
+            );    
 
-        $delivery = new Delivery($this->deliveries[$this->delivery_id]);
-        $delivery->setWithDiscount($order->original_price);
-        dd($order->original_price, $delivery->price);
-
-        $data = [
-            'userName' => config('alpha.login'),
-            'password' => config('alpha.password'),
-            'orderNumber' => urlencode($order->id), 
-            'amount' => urlencode($order->original_price + $delivery->price),
-            'returnUrl' => 'http://lyc.develophere.ru/order/success'
-        ];
-        dd($data);
-
-        $response = alphaService()->gateway(config('alpha.registerDo'), $data);
-
-        return redirect()->to($response['formUrl']);
+            if(!empty($response['formUrl'])){
+                return redirect()->to($response['formUrl']);
+            } elseif(!empty($response['errorMessage'])){
+                $this->addError('error', $response['errorMessage']);
+                return;
+            }
+        }
+        $this->addError('not-created', $this->settings['not-created']['value']);
 
     }
 

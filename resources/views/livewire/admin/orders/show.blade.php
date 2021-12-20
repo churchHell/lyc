@@ -1,7 +1,20 @@
 <div class="p-2 grid grid-cols-12 rounded shadow-md bg-{{$order['status']['color']}}-100">
 
     <div class="xs space-y-1">
-        <div class="font-bold">{{ $order['id'] }}</div>
+        <div class="flex items-center space-x-1">
+            <div class="font-bold">{{ $order['id'] }}</div>
+            @if(!empty($order['payment_status']))
+                    <i class="fas fa-coins xs {{ $order['payment_status']==2 ? 'success' : 'danger' }}" 
+                        title="{{ __('alpha.status.'.$order['payment_status']) }}"
+                    ></i>                
+            @endif
+            @if(!empty($order['payment_error']))
+                <i class="fas fa-exclamation-triangle xs danger" title="{{ __('alpha.status.'.$order['payment_error']) }}"></i>
+            @endif
+            @if(!empty($order['payment_action_description']))
+                <i class="fas fa-exclamation-triangle xs danger" title="{{ $order['payment_action_description'] }}"></i>
+            @endif
+        </div>
         <div>{{ $order['created'] }}</div>
         <div x-data="{ statuses:false }" class="space-y-1">
             <x-button @click="statuses=!statuses" @click.away="statuses=false"

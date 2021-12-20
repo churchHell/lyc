@@ -16,7 +16,7 @@ class Index extends BaseComponent
     public ?array $delivery = null;
     public ?string $deliveryPrice = null;
 
-    protected $listeners = ['orderCreated', 'render', 'deliverySelected'];
+    protected $listeners = ['render', 'orderCreated', 'deliverySelected'];
 
     public function mount(): void
     {

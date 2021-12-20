@@ -55,8 +55,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Auth::routes(['except' => 'logout', 'verify' => true]);
-Route::get('/order/success', [App\Http\Controllers\OrderController::class, 'success'])->name('order.success');
-Route::get('/order/error', [App\Http\Controllers\OrderController::class, 'error'])->name('order.error');
+Route::get('/order/paymentResult', [App\Http\Controllers\OrderController::class, 'paymentResult'])->name('order.paymentResult');
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/page/{page:slug}', [PageController::class, 'show'])->name('page.index');
 Route::get('/{slug}', [CategoryController::class, 'index'])->name('category.index')->where('slug', '[0-9A-Za-z\-]+');

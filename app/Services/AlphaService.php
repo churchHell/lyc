@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Order;
+
 
 class AlphaService
 {
@@ -19,6 +21,27 @@ class AlphaService
         $response = json_decode($response, true); //   JSON  
         curl_close($curl); //  
         return $response; //  
+    }
+
+    public function getRegisterData(Order $order): array
+    {
+        return  [
+            'userName' => config('alpha.login'),
+            'password' => config('alpha.password'),
+            'orderNumber' => urlencode($order->id), 
+            'amount' => urlencode($order->price + $order->delivery->getWithDiscount($order->price)),
+            'returnUrl' => config('alpha.returnUrl')
+        ];
+    }
+
+    public function getIsPaymentSuccessData(string $orderId): array
+    {
+        return  [
+            'userName' => config('alpha.login'),
+            'password' => config('alpha.password'),
+            'orderId' => $orderId,
+            'amount' => 0
+        ];
     }
 
     // if ($_SERVER['REQUEST_METHOD'] == 'GET' && !isset($_GET['orderId'])) {

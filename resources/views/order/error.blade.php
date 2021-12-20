@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
-@section('app-content')
+@section('content')
 
-    error
+    <div class="danger s">{{ $message }}</div>
 
 @endsection
 

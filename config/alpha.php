@@ -6,7 +6,7 @@ return [
     'password' => env('ALPHA_PASSWORD'),
     'registerDo' => 'https://web.rbsuat.com/ab_by/rest/register.do',
     'depositDo' => 'https://web.rbsuat.com/ab_by/rest/deposit.do',
-    'successUrl' => env('APP_URL').'/order/success',
-    'errorUrl' => env('APP_URL').'/order/error',
+    'orderStatusDo' => 'https://web.rbsuat.com/ab_by/rest/getOrderStatusExtended.do',
+    'returnUrl' => env('APP_URL').'/order/paymentResult'
 
 ];

@@ -61,8 +61,8 @@ class Show extends BaseComponent
     }
 
     private function calculateDeliveryPrice(): void
-    {
-        $delivery = new Delivery($this->deliveries[$this->order['delivery_id']]);
+    {        
+        $delivery = Delivery::findOrFail($this->order['delivery_id']);
         $delivery->setWithDiscount($this->order['price']);
         $this->order['delivery'] =  $delivery->toArray();
     }

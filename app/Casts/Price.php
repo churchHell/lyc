@@ -6,6 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
 class Price implements CastsAttributes
 {
+
     /**
      * Cast the given value.
      *
@@ -17,6 +18,7 @@ class Price implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
+        return $value;
         return number_format($value / 100, 2, '.', '');
     }
 
@@ -31,6 +33,6 @@ class Price implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        return str_replace(',', '.', $value) * 100;
+        return $value ? str_replace(',', '.', $value) * 100 : $value;
     }
 }

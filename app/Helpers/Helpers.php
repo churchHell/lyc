@@ -22,10 +22,9 @@ if (!function_exists('dateToShow')) {
 }
 
 if (!function_exists('renderPrice')) {
-    function renderPrice(string $price): string
+    function renderPrice(int $price)
     {
-        return $price . ' BYN';
-//        return number_format($price / 100, 2, '.', ' ') . ' BYN';
+        return number_format($price/100, 2, '.', ' ') . ' BYN';
     }
 }
 
