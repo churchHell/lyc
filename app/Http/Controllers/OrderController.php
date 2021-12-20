@@ -26,7 +26,6 @@ class OrderController extends Controller
                     $view = 'success';
                 }
             }
-            dd($response, $view, $message);
         }        
         return view('order.'.$view, compact('message'));
     }
