@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="success s">{{ $message }}</div>
+    <div class="success s">{!! $message !!}</div>
 
 @endsection
 

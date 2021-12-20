@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="danger s">{{ $message }}</div>
+    <div class="danger s">{!! $message !!}</div>
 
 @endsection
 
