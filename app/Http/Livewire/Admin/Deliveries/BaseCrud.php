@@ -16,9 +16,9 @@ class BaseCrud extends Component
 
     public ?string $description = '';
     public string $name = '';
-    public string $price = '';
+    public ?string $price = '';
     public bool $active_free_price = false;
-    public string $free_price = '';
+    public ?string $free_price = '';
 
     protected function rules()
     {
