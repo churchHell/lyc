@@ -29,6 +29,8 @@ class Create extends Component
     public string $city = '';
     public string $address = '';
 
+    public array $settings = [];
+
     // protected $listeners = ['cartUpdated'];
 
     protected function rules(): array
@@ -53,6 +55,7 @@ class Create extends Component
             $this->phone = auth()->user()->phone;
         }
         $this->deliveries = Delivery::active()->get()->keyBy('id')->toArray();
+        $this->settings = SettingsKey::whereSlug('order')->first()->settings->keyBy('slug')->toArray();
     }
 
     public function store()
@@ -64,22 +67,24 @@ class Create extends Component
         $order = Order::create($this->validate());
         $order->purchases()->attach($cart->purchases->pluck('id')->toArray());
 
-        \DB::commit();
-
         if(!empty($order) && $order->exists){
             $response = alphaService()->gateway(
                 config('alpha.registerDo'),
                 alphaService()->getRegisterData($order)
-            );    
+            );  
 
             if(!empty($response['formUrl'])){
+
+                \DB::commit();
+
                 return redirect()->to($response['formUrl']);
-            } elseif(!empty($response['errorMessage'])){
-                $this->addError('error', $response['errorMessage']);
-                return;
-            }
+            } 
         }
-        $this->addError('not-created', $this->settings['not-created']['value']);
+        $this->addError('error', 
+            !empty($this->settings['not-created']['value'])
+                ? $this->settings['not-created']['value']
+                : __('error')
+        );
 
     }
 
