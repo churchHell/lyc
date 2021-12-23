@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
 class Order extends Model
 {
-    use HasFactory, FullName, Phone, TotalPrice;
+    use HasFactory, Notifiable, FullName, Phone, TotalPrice;
 
     protected $fillable = ['name', 'surname', 'patronymic', 'phone', 'index', 'city', 'address', 'delivery_id', 'comment', 'status_id', 'payment_status', 'payment_error', 'payment_action_description'];
     protected $casts = ['name' => Name::class, 'surname' => Name::class, 'created_at' => 'datetime'];

@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\Mail\OrderCreated;
 use App\Models\Order;
+use Illuminate\Support\Facades\Mail;
 
 class OrderObserver
 {
@@ -10,52 +12,14 @@ class OrderObserver
 
     public function creating(Order $order)
     {
-//        if(!$order->purchases->count()){
-//            return false;
-//        }
+       if(!$order->purchases->count()){
+           return false;
+       }
     }
 
-    /**
-     * Handle the Order "updated" event.
-     *
-     * @param  \App\Models\Order  $order
-     * @return void
-     */
-    public function updated(Order $order)
+    public function created(Order $order)
     {
-        //
+        Mail::to(config('mail.from.address'))->queue(new OrderCreated($order));
     }
 
-    /**
-     * Handle the Order "deleted" event.
-     *
-     * @param  \App\Models\Order  $order
-     * @return void
-     */
-    public function deleted(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Handle the Order "restored" event.
-     *
-     * @param  \App\Models\Order  $order
-     * @return void
-     */
-    public function restored(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Handle the Order "force deleted" event.
-     *
-     * @param  \App\Models\Order  $order
-     * @return void
-     */
-    public function forceDeleted(Order $order)
-    {
-        //
-    }
 }

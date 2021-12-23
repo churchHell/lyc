@@ -96,6 +96,8 @@
 	"This password reset link will expire in :count minutes." : "Данная ссылка будет активна в теченни :count минут",
 	"If you did not request a password reset, no further action is required." : "Если вы не отправляли запрос на сброс пароля, проигнорируйте данное письмо",
 
+	"order-created" : "Создан новый заказ",
+
 	"alpha.status.0" : "Заказ зарегистрирован, но не оплачен",
 	"alpha.status.1" : "Предавторизованная сумма захолдирована (для двухстадийных платежей)",
 	"alpha.status.2" : "Проведена полная авторизация суммы заказа",
