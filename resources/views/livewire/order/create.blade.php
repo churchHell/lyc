@@ -71,11 +71,7 @@
                     <x-button type="submit" class="s success">{{ __('arrange') }}</x-button>
                 </div>
 
-                @error('not-created')
-                    <div class="m danger">
-                        {{ $settings['not-created']['value'] }}
-                    </div>
-                @enderror
+                <x-error>error</x-error>
 
             </form>
 
