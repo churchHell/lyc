@@ -12,9 +12,9 @@ class OrderObserver
 
     public function creating(Order $order)
     {
-       if(!$order->purchases->count()){
-           return false;
-       }
+       // if(!$order->purchases->count()){
+       //     return false;
+       // }
     }
 
     public function created(Order $order)
