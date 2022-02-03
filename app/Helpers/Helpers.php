@@ -69,6 +69,13 @@ if (!function_exists('getCartId')) {
     }
 }
 
+if (!function_exists('str')) {
+    function str(string $string): \Illuminate\Support\Stringable
+    {
+        return \Illuminate\Support\Str::of($string);
+    }
+}
+
 // Bindings
 
 if (!function_exists('cartRepository')) {

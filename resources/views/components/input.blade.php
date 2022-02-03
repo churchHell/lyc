@@ -10,7 +10,7 @@
         >
 
         @error(!empty($name) ? $name : $attributes->prop('model'))
-        <div class="text-xs text-red-800">
+            <div class="text-xs text-red-800">
                 {{ $message }}
             </div>
         @enderror

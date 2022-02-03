@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\{
     ItemController as AdminItemController,
     OrderController,
     PageController as AdminPageController,
+    PromocodeController,
     PropertyController,
     SettingController,
     UnitController
@@ -41,6 +42,7 @@ Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function
     Route::get('/items/create/{category}', [AdminItemController::class, 'create'])->name('items.create')->where('category', '[0-9]+');
     Route::resource('/orders', OrderController::class)->only('index');
     Route::resource('/pages', AdminPageController::class)->only('index', 'create', 'edit');
+    Route::resource('/promocodes', PromocodeController::class)->only('index', 'create', 'edit');
     Route::resource('/properties', PropertyController::class)->only('index', 'create');
     Route::resource('/settings', SettingController::class)->only('index');
     Route::resource('/statuses', App\Http\Controllers\Admin\StatusController::class)->only('index');

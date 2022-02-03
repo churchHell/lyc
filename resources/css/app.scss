@@ -11,6 +11,9 @@ button, .btn{
 }
 
 input{
+  &[type='checkbox']{
+    @apply w-auto
+  }
   @apply rounded shadow border border-gray-400
 }
 
