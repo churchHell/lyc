@@ -32,7 +32,7 @@ class Update extends Component
     {
         $rules = $this->rules ?? $this->getRequestRules();
         $rules = Arr::keys_modify($rules, 'fields.');
-        dd($rules);
+        $rules['fields.code'] .= ',' . $this->model->id . ',id';
         return $rules;
     }
 

@@ -22,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\AlphaService'
         );
         $this->app->bind(
+            'App\Services\PromocodeServiceInterface',
+            'App\Services\PromocodeService'
+        );
+        $this->app->bind(
             'App\Repositories\CartRepositoryInterface',
             'App\Repositories\CartRepository'
         );

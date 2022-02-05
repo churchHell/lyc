@@ -13,7 +13,7 @@ trait RequestTrait
         if(!class_exists($request)){
             return [];
         }
-        return (new $request(1))->rules();
+        return (new $request())->rules();
     }
 
 }

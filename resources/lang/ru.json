@@ -1,6 +1,7 @@
 {
 
 	"account" : "Аккаунт",
+	"accept" : "Применить",
 	"actions" : "Действия",
 	"active" : "Активен",
 	"added" : "Добавлен",
@@ -62,6 +63,7 @@
 	"percentage_discount" : "Процентная скидка",
 	"phone" : "Телефон",
 	"price" : "Цена",
+	"promocode" : "Промокод",
 	"promocodes" : "Промокоды",
 	"properties" : "Параметры",
 	"qty" : "Количество",

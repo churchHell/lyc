@@ -6,7 +6,6 @@
             <a href="{{ route('admin.promocodes.edit', $promocode->id) }}" class="">
                 <i class="fas fa-pen"></i>
             </a>
-            
         </div>       
         <div class="xs col-span-1">{{ $promocode->description }}</div>
         <div class="xs col-span-1">{{ $promocode->min_price }}</div>

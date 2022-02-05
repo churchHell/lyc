@@ -4,10 +4,7 @@ namespace App\Http\Livewire\Cart;
 
 use App\Http\Livewire\BaseComponent;
 use App\Models\{Purchase};
-use App\Services\CartService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Livewire\Component;
-use Barryvdh\Debugbar\Facade as Debugbar;
 
 class Show extends BaseComponent
 {
@@ -17,18 +14,25 @@ class Show extends BaseComponent
     public string $image = '';
     public array $item;
     public string $price;
+    public ?string $total_without_discount = null;
     public string $qty;
     public string $total;
     public $created;
 
     protected array $rules = ['qty' => 'required|integer|min:1'];
 
+    protected $listeners = ['promocodeAccepted'];
+
     public function mount(Purchase $purchase)
     {
+        // dd(1);
+        // if(!empty($purchase->price_without_discount))
+        // dd($purchase);
         $this->purchaseId = $purchase->id;
         $this->image = $purchase->item->image->path;
         $this->item = $purchase->item->toArray();
         $this->price = $purchase->price;
+        // $this->price_without_discount = $purchase->price_without_discount;
         $this->qty = $purchase->qty;
         $this->total = $purchase->total;
         $this->created = $purchase->created;
@@ -56,6 +60,24 @@ class Show extends BaseComponent
         }
         else {
             $this->emit('notDeleted');
+        }
+    }
+
+    public function promocodeAccepted(array $purchases): void
+    {
+        // dd($purchases);
+        foreach($purchases as $purchase){
+            if($this->purchaseId == $purchase['id'] && !empty($purchase['total_without_discount'])){
+                $model = new Purchase($purchase);
+                $this->total_without_discount = $purchase['total_without_discount'];
+                $this->total = $model->total;
+                // $model
+                // dd($model);
+                // dd($purchase);
+                // $this->total_without_discount = $purchase['total_without_discount'];
+                // $this->total = $purchase['total'];
+                break;
+            }
         }
     }
 

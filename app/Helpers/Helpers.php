@@ -98,3 +98,10 @@ if (!function_exists('alphaService')) {
         return app(\App\Services\AlphaServiceInterface::class);
     }
 }
+
+if (!function_exists('promocodeService')) {
+    function promocodeService()
+    {
+        return app(\App\Services\PromocodeServiceInterface::class);
+    }
+}

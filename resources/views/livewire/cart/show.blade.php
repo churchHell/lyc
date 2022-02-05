@@ -7,7 +7,7 @@
             <div class="">
                 <a href="{{ route('item.show', [$item['categories'][0]['slug'], $item['slug']]) }}" title="{{ $item['name'] }}" class="font-bold">
                     {{ $item['name'] }}
-                </a>
+                </a>                    
                 <div class="">{{ renderPrice($price) }}</div>
                 <div>
                     @if(!empty($item['properties']))
@@ -30,6 +30,7 @@
                     class="s success">{{ __('update') }}</x-button>
                 </div>
                 <div class="text-center">
+                    @if($total_without_discount) <div class="line-through">{{ renderPrice($total_without_discount) }}</div> @endif
                     <div class="font-bold">{{ renderPrice($total) }}</div>
                     <div class="text-xs text-red-500">{{ __('cart-actual-time') }}</div>
                 </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Order;
 
-use App\Models\{Delivery, Order, SettingsKey};
+use App\Models\{Delivery, Order, Promocode, SettingsKey};
 use App\Rules\Phone;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Validator;
@@ -19,6 +19,8 @@ class Create extends Component
     public string $name = '';
     public string $surname = '';
     public string $phone = '';
+    
+    public string $promocode = '';
 
     public array $deliveries = [];
     public ?int $delivery_id = null;
@@ -58,11 +60,31 @@ class Create extends Component
         $this->settings = SettingsKey::whereSlug('order')->first()->settings->keyBy('slug')->toArray();
     }
 
+    public function promocode():void
+    {
+        $validated = $this->validate(
+            ['promocode' => 'required|string|exists:promocodes,code'],
+            ['promocode.exists' => 'Данный :attribute не существует']
+        );
+        $promocode = $this->getPromocode($validated['promocode']);
+        if(!$promocode){
+            $this->addError('promocode', 'Промокод не активен');
+            return;
+        }
+        $this->emit('acceptPromocode', $promocode);
+    }
+
     public function store()
     {
         $cart = cartRepository()->getCart();
+        promocodeService()->acceptPromocode($cart->purchases, $this->getPromocode($this->promocode));
+        
 
         \DB::beginTransaction();
+
+        foreach($cart->purchases as $purchase){
+            $purchase->save();
+        }
 
         $order = Order::create($this->validate());
         $order->purchases()->attach($cart->purchases->pluck('id')->toArray());
@@ -102,5 +124,17 @@ class Create extends Component
     public function render()
     {
         return view('livewire.order.create');
+    }
+
+    private function getPromocode(string $promocode): ?Promocode
+    {
+        $promocode = Promocode::whereCode($promocode)
+            ->whereDate('starts_at', '<=', date("Y-m-d"))
+            ->orWhereNull('starts_at')
+            ->whereDate('ends_at', '>=', date("Y-m-d"))
+            ->orWhereNull('ends_at')
+            ->whereActive(true)
+            ->first();
+        return $promocode;
     }
 }

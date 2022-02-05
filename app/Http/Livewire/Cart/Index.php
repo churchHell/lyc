@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Cart;
 
-use App\Models\{Purchase, SettingsKey};
+use App\Models\{Promocode, Purchase, SettingsKey};
 use App\Http\Livewire\BaseComponent;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -15,8 +15,9 @@ class Index extends BaseComponent
     public array $settings = [];
     public ?array $delivery = null;
     public ?string $deliveryPrice = null;
+    public ?Promocode $promocode = null;
 
-    protected $listeners = ['render', 'orderCreated', 'deliverySelected'];
+    protected $listeners = ['render', 'orderCreated', 'deliverySelected', 'acceptPromocode'];
 
     public function mount(): void
     {
@@ -57,9 +58,18 @@ class Index extends BaseComponent
             : $this->delivery['price'];
     }
 
+    public function acceptPromocode(Promocode $promocode): void
+    {
+        $this->promocode = $promocode;
+    }
+
     public function render()
     {
         $cart = cartRepository()->getCart()->load('purchases');
+        if($this->promocode){
+            promocodeService()->acceptPromocode($cart->purchases, $this->promocode);
+            $this->emit('promocodeAccepted', $cart->purchases->toArray());
+        }
         $this->calculateDeliveryPrice();
         return view('livewire.cart.index', compact('cart'));
     }
