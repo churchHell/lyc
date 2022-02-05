@@ -24,7 +24,7 @@ class CreatePromocodesTable extends Migration
             $table->boolean('free_delivery')->default(0);
             $table->foreignId('gift_item_id')->nullable()->constraned('items');
             $table->date('starts_at')->nullable();
-            $table->dateTime('ends_at')->nullable();
+            $table->date('ends_at')->nullable();
             $table->boolean('active')->default(1);
             $table->timestamps();
         });
