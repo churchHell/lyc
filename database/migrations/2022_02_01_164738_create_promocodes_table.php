@@ -18,7 +18,6 @@ class CreatePromocodesTable extends Migration
             $table->string('code')->unique();
             $table->string('description')->nullable();
             $table->integer('min_price')->nullable();
-            $table->integer('min_qty')->nullable();
             $table->integer('every_item')->nullable();
             $table->integer('percentage_discount')->nullable();
             $table->integer('fixed_discount')->nullable();

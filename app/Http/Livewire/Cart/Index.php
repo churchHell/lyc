@@ -17,7 +17,7 @@ class Index extends BaseComponent
     public ?string $deliveryPrice = null;
     public ?Promocode $promocode = null;
 
-    protected $listeners = ['render', 'orderCreated', 'deliverySelected', 'acceptPromocode'];
+    protected $listeners = ['render', 'orderCreated', 'deliverySelected', 'acceptPromocode', 'resetPromocode'];
 
     public function mount(): void
     {
@@ -63,12 +63,17 @@ class Index extends BaseComponent
         $this->promocode = $promocode;
     }
 
+    public function resetPromocode(): void
+    {
+        $this->promocode = null;
+    }
+
     public function render()
     {
         $cart = cartRepository()->getCart()->load('purchases');
         if($this->promocode){
-            promocodeService()->acceptPromocode($cart->purchases, $this->promocode);
-            $this->emit('promocodeAccepted', $cart->purchases->toArray());
+            $cart->purchases = promocodeService()->acceptPromocode($cart->purchases, $this->promocode);
+            // $this->emit('promocodeAccepted', $cart->purchases->toArray());
         }
         $this->calculateDeliveryPrice();
         return view('livewire.cart.index', compact('cart'));

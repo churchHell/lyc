@@ -38,7 +38,7 @@ class Purchase extends Model
 
    public function getCreatedAttribute(): string
    {
-       return $this->created_at->format('d.m.Y в H:i');
+       return $this->created_at ? $this->created_at->format('d.m.Y в H:i') : '';
    }
 
 }

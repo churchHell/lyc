@@ -45,12 +45,15 @@
                     <x-error>delivery_id</x-error>
                 </div>
 
-                <div class="flex space-x-2 items-start">
-                    <x-input
-                        wire:model.delay.9999s='promocode'
-                        class="s"
-                    ></x-input>
-                    <x-button wire:click.prevent="promocode" class="s success">{{ __('accept') }}</x-button>
+                <div class="flex flex-col items-start space-y-2">
+                    <div class="flex space-x-2 items-start">
+                        <x-input
+                            wire:model.delay.9999s='promocode'
+                            class="s"
+                        ></x-input>
+                        <x-button wire:click.prevent="promocode" class="s success">{{ __('accept') }}</x-button>
+                    </div>
+                    <div><x-success>promocode</x-success></div>
                 </div>
 
                 @if($needAddress)

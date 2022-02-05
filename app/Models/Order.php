@@ -24,6 +24,11 @@ class Order extends Model
         return $this->belongsToMany(Purchase::class)->withTimestamps();
     }
 
+    public function promocodes(): BelongsToMany
+    {
+        return $this->belongsToMany(Promocode::class)->withTimestamps();
+    }
+
     public function delivery(): BelongsTo
     {
         return $this->belongsTo(Delivery::class);

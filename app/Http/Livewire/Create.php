@@ -34,7 +34,7 @@ class Create extends Component
 
     public function store(): void
     {
-        $validated = $this->validate()['fields'];
+        $validated = $this->validate($this->rules())['fields'];
         $model = $this->crudCreate($validated);
         if($model->exists){
             $this->emit('createStored', $model);

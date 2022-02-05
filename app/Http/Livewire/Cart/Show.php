@@ -25,21 +25,21 @@ class Show extends BaseComponent
 
     public function mount(Purchase $purchase)
     {
-        // dd(1);
-        // if(!empty($purchase->price_without_discount))
-        // dd($purchase);
         $this->purchaseId = $purchase->id;
         $this->image = $purchase->item->image->path;
         $this->item = $purchase->item->toArray();
         $this->price = $purchase->price;
-        // $this->price_without_discount = $purchase->price_without_discount;
         $this->qty = $purchase->qty;
         $this->total = $purchase->total;
         $this->created = $purchase->created;
+        $this->total_without_discount = $purchase->total_without_discount;
     }
 
     public function update(): void
     {        
+        if(!$this->purchaseId){
+            return;
+        }
         $purchase = Purchase::findOrFail($this->purchaseId);
         $this->authorize('update', $purchase);
         if($this->resultIcon($purchase->update($this->validate()), 'updated', 'notUpdated')){
@@ -51,6 +51,9 @@ class Show extends BaseComponent
 
     public function delete(): void
     {        
+        if(!$this->purchaseId){
+            return;
+        }
         $purchase = Purchase::findOrFail($this->purchaseId);
         $this->authorize('delete', $purchase);
         if($purchase->delete()){
@@ -65,20 +68,14 @@ class Show extends BaseComponent
 
     public function promocodeAccepted(array $purchases): void
     {
-        // dd($purchases);
-        foreach($purchases as $purchase){
-            if($this->purchaseId == $purchase['id'] && !empty($purchase['total_without_discount'])){
-                $model = new Purchase($purchase);
-                $this->total_without_discount = $purchase['total_without_discount'];
-                $this->total = $model->total;
-                // $model
-                // dd($model);
-                // dd($purchase);
-                // $this->total_without_discount = $purchase['total_without_discount'];
-                // $this->total = $purchase['total'];
-                break;
-            }
-        }
+        // foreach($purchases as $purchase){
+        //     if($this->purchaseId == $purchase['id'] && !empty($purchase['total_without_discount'])){
+        //         $model = new Purchase($purchase);
+        //         $this->total_without_discount = $purchase['total_without_discount'];
+        //         $this->total = $model->total;
+        //         break;
+        //     }
+        // }
     }
 
     public function render()

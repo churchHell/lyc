@@ -3,7 +3,7 @@
     <div class="divide-y sm:divide-none">
         @forelse($cart->purchases as $purchase)
 
-            <livewire:cart.show :purchase="$purchase" :key="'purchase-'.$purchase->id"/>
+            <livewire:cart.show :purchase="$purchase" :key="'purchase-'.$purchase->id.time()"/>
 
         @empty
             {{ __('empty') }}

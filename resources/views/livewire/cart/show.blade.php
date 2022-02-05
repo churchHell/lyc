@@ -27,7 +27,7 @@
                 <div class="flex items-start space-x-2">
                     <x-input wire:model.lazy="qty" class="s w-16 text-center"></x-input>
                     <x-button wire:click="update" success="updated" error="notUpdated"
-                    class="s success">{{ __('update') }}</x-button>
+                    class="s success" :disabled="empty($purchaseId)">{{ __('update') }}</x-button>
                 </div>
                 <div class="text-center">
                     @if($total_without_discount) <div class="line-through">{{ renderPrice($total_without_discount) }}</div> @endif
@@ -41,7 +41,7 @@
             </div>
             <div class="">
                 <x-button wire:click="delete" success="deleted" error="notDeleted"
-                class="s danger">{{ __('delete') }}</x-button>
+                class="s danger" :disabled="empty($purchaseId)">{{ __('delete') }}</x-button>
             </div>
         </div>
     </div>

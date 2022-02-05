@@ -68,6 +68,9 @@
         <div class="font-bold">
             {{ renderPrice($order['price'] + $order['delivery']['price']) }}
         </div>
+        @if($promocodes)
+            <i class="fas fa-percent xs success" title="{{ $promocodes }}"></i>
+        @endif
     </div>
 
     <div wire:click="$set('commentEdit', true)" class="xs col-span-2 cursor-pointer">

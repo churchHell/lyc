@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Order;
 
-use App\Models\{Delivery, Order, Promocode, SettingsKey};
+use App\Models\{Cart, Delivery, Order, Promocode, SettingsKey};
 use App\Rules\Phone;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Validator;
@@ -32,6 +32,7 @@ class Create extends Component
     public string $address = '';
 
     public array $settings = [];
+    public Cart $cart;
 
     // protected $listeners = ['cartUpdated'];
 
@@ -58,6 +59,7 @@ class Create extends Component
         }
         $this->deliveries = Delivery::active()->get()->keyBy('id')->toArray();
         $this->settings = SettingsKey::whereSlug('order')->first()->settings->keyBy('slug')->toArray();
+        $this->cart = cartRepository()->getCart();
     }
 
     public function promocode():void
@@ -69,25 +71,39 @@ class Create extends Component
         $promocode = $this->getPromocode($validated['promocode']);
         if(!$promocode){
             $this->addError('promocode', 'Промокод не активен');
+            $this->reset('promocode');
+            return;
+        }
+        if($promocode->min_price && $this->cart->price < $promocode->min_price){
+            $this->addError('promocode', 'Сумма заказа меньше минимальной');
+            $this->reset('promocode');
+            $this->emit('resetPromocode');
             return;
         }
         $this->emit('acceptPromocode', $promocode);
+        session()->flash('promocode', 'Применен промокод: ' . $promocode->code . ' ' . $promocode->description);
     }
 
     public function store()
     {
         $cart = cartRepository()->getCart();
-        promocodeService()->acceptPromocode($cart->purchases, $this->getPromocode($this->promocode));
-        
+        $promocode = $this->getPromocode($this->promocode);
+        if($this->promocode){
+            $cart->purchases = promocodeService()->acceptPromocode($cart->purchases, $promocode);
+        }
 
         \DB::beginTransaction();
 
-        foreach($cart->purchases as $purchase){
-            $purchase->save();
+        if($this->promocode){
+            foreach($cart->purchases as $purchase){
+                unset($purchase->total_without_discount);
+                $purchase->save();
+            }
         }
 
         $order = Order::create($this->validate());
         $order->purchases()->attach($cart->purchases->pluck('id')->toArray());
+        $order->promocodes()->attach($promocode->id);
 
         if(!empty($order) && $order->exists){
             $response = alphaService()->gateway(

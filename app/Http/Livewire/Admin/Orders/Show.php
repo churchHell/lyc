@@ -19,6 +19,7 @@ class Show extends BaseComponent
     public array $deliveries = [];
     public array $order;
     public array $statuses = [];
+    public string $promocodes = '';
 
     protected array $rules = [
         'order.delivery_id' => 'required|integer|min:1|exists:deliveries,id'
@@ -31,6 +32,7 @@ class Show extends BaseComponent
         $orderModel->created = $orderModel->created;
         $this->order = $orderModel->toArray();
         $this->calculateDeliveryPrice();
+        $this->promocodes = optional($orderModel->promocodes)->pluck('code')->implode(', ');
     }
 
     public function status(int $id)
